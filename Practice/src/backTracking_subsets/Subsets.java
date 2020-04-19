@@ -28,11 +28,11 @@ public class Subsets {
 	public void printSubsets() {
 		boolean[] using = new boolean[parentSet.length];
 		
-		backtrack(using, 0, n);
+		backtrack(using, 0);
 		System.out.println("Number of subsets : "+this.count);
 	}
 	
-	private void backtrack(boolean[] using, int depth, int n) {
+	private void backtrack(boolean[] using, int depth) {
 		if(depth == n) {
 			print(using);
 			count++;
@@ -43,7 +43,7 @@ public class Subsets {
 			
 			for(int i=0; i<ncand; i++) {
 				using[depth] = candidates[i];
-				backtrack(using, depth+1, n);
+				backtrack(using, depth+1);
 			}
 		}
 	}
