@@ -12,11 +12,11 @@ public class Permutation {
 	
 	public void run() {
 		int[] permutation = new int[n];
-		backtrack(permutation, 0, n);
+		backtrack(permutation, 0);
 		System.out.println(" 총 순열의 갯수 : "+cnt);
 	}
 	
-	private void backtrack(int[] permutation, int depth, int n) {
+	private void backtrack(int[] permutation, int depth) {
 		if(depth == n) {
 			printPermutation(permutation);
 			cnt++;
@@ -25,7 +25,7 @@ public class Permutation {
 			for(int i=1; i<=n; i++) {
 				if(isPromising(permutation, depth, i)) {
 					permutation[depth] = i;
-					backtrack(permutation, depth+1, n);
+					backtrack(permutation, depth+1);
 				}
 			}
 		}
