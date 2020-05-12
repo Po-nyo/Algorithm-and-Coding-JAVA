@@ -21,7 +21,7 @@ public class Main {
 		int n = sc.nextInt();
 		
 		Permutation p = new Permutation(n);
-		p.run();
+		p.call();
 		sc.close();
 	}
 

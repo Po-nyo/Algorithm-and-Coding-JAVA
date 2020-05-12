@@ -2,7 +2,7 @@ package backTracking_subsets;
 
 public class Subsets {
 	
-	private int[] parentSet;
+	private int[] superSet;
 	private int count;
 	private int n;
 	
@@ -19,14 +19,14 @@ public class Subsets {
 	}
 	
 	private void inIt() {
-		parentSet = new int[n];
+		superSet = new int[n];
 		
 		for(int i=1; i<=n; i++)
-			this.parentSet[i-1] = n;
+			this.superSet[i-1] = n;
 	}
 	
 	public void printSubsets() {
-		boolean[] using = new boolean[parentSet.length];
+		boolean[] using = new boolean[superSet.length];
 		
 		backtrack(using, 0);
 		System.out.println("Number of subsets : "+this.count);

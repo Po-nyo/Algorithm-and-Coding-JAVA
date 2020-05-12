@@ -11,7 +11,11 @@ public class EditDistance {
 		this.str1 = " "+str1;
 		this.str2 = " "+str2;
 		this.distanceArray = new int[this.str1.length()][this.str2.length()];
+	}
+	
+	public void call() {
 		work();
+		print();
 	}
 	
 	private void work() {

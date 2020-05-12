@@ -22,7 +22,7 @@ public class Main {
 		int n = sc.nextInt();
 		
 		N_Queens n_queens = new N_Queens(n);
-		n_queens.run();
+		n_queens.solution();
 		sc.close();
 
 	}

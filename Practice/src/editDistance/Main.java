@@ -23,10 +23,9 @@ public class Main {
 		String str2 = sc.nextLine();
 		
 		EditDistance ed = new EditDistance(str1, str2);
-		ed.print();
+		ed.call();
 		
 		sc.close();
-
 	}
 
 }

@@ -48,10 +48,11 @@ public class TowersOfHanoi {
 	}
 	
 	private void inIt() {
-		for(int i=this.disks; i>0; i--)
-			first.push(i);
+		first.clear();
 		second.clear();
 		third.clear();
+		for(int i=this.disks; i>0; i--)
+			first.push(i);
 	}
 	
 	public void printTowers() {

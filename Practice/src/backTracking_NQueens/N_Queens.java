@@ -10,7 +10,7 @@ public class N_Queens {
 		this.cnt = 0;
 	}
 	
-	public void run() {
+	public void solution() {
 		int[] queens = new int[n]; // index를 행, 원소를 열로 생각
 		
 		backtrack(queens, 0);

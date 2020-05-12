@@ -10,7 +10,7 @@ public class Permutation {
 		this.cnt = 0;
 	}
 	
-	public void run() {
+	public void call() {
 		int[] permutation = new int[n];
 		backtrack(permutation, 0);
 		System.out.println(" 총 순열의 갯수 : "+cnt);
