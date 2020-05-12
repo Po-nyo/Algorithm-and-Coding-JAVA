@@ -20,7 +20,7 @@ public class Main {
 		String str2 = sc.nextLine();
 		
 		LCS lcs = new LCS(str1, str2);
-		lcs.print();
+		lcs.call();
 		sc.close();
 
 	}

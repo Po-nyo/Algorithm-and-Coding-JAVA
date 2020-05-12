@@ -12,8 +12,12 @@ public class LCS {
 		this.str2 = " "+str2;
 		
 		lcsArray = new int[str1.length()][str2.length()];
+	}
+	
+	public void call() {
 		work();
 		trace();
+		print();
 	}
 	
 	public void print() {
@@ -58,14 +62,6 @@ public class LCS {
 		}
 		
 		lcsLength = lcs.length();
-	}
-
-	public String getStr1() {
-		return str1;
-	}
-
-	public String getStr2() {
-		return str2;
 	}
 
 	public int[][] getLcsArray() {
