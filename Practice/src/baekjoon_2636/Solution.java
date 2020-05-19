@@ -10,7 +10,6 @@ public class Solution {
 	public void solution(int[][] cheese) {
 		this.cheese = cheese;
 		this.cheese_count = 0;
-		visited = new boolean[cheese.length][cheese[0].length];
 		
 		callDFS(0, 0);
 		int count = 0;
