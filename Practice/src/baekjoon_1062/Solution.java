@@ -1,12 +1,11 @@
 package baekjoon_1062;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public class Solution {
 	String[] words;
 	boolean[] alphabets;
-	ArrayList<Character> chars;
+	ArrayList<Character> candidates;
 	int max;
 	
 	public void solution(String[] words, int k) {
@@ -14,11 +13,11 @@ public class Solution {
 		alphabets = new boolean[26];
 		this.max = 0;
 		
-		chars = inIt();
+		candidates = candidates();
 		
 		if(k < 5)
 			max = 0;
-		else if(chars.size() <= k-5)
+		else if(candidates.size() <= k-5)
 			max = words.length;
 		else 
 			backtrack(0, 5, k);
@@ -26,25 +25,22 @@ public class Solution {
 		System.out.println(this.max);
 	}
 	
-	private ArrayList<Character> inIt() {
+	private ArrayList<Character> candidates() {
 		alphabets['a'-'a'] = true;
 		alphabets['n'-'a'] = true;
 		alphabets['t'-'a'] = true;
 		alphabets['i'-'a'] = true;
 		alphabets['c'-'a'] = true;
 		
-		HashSet<Character> tempSet = new HashSet<>();
 		ArrayList<Character> list = new ArrayList<>();
 		
 		for(String word : words) {
 			for(int i=0; i<word.length(); i++) {
 				char c = word.charAt(i);
-				if(!alphabets[c-'a'])
-					tempSet.add(c);
+				if(!alphabets[c-'a'] && !list.contains(c))
+					list.add(c);
 			}
 		}
-		
-		list.addAll(tempSet);
 		
 		return list;
 	}
@@ -54,8 +50,8 @@ public class Solution {
 			count();
 		}
 		else {
-			for(int i=start; i<this.chars.size(); i++) {
-				char c = this.chars.get(i);				
+			for(int i=start; i<this.candidates.size(); i++) {
+				char c = this.candidates.get(i);				
 				this.alphabets[c-'a'] = true;
 				backtrack(i+1, depth+1, k);
 				this.alphabets[c-'a'] = false;
