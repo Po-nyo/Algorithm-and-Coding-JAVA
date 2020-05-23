@@ -1,54 +1,74 @@
 package baekjoon_1062;
 
+import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.Set;
 
 public class Solution {
 	String[] words;
+	boolean[] alphabets;
+	ArrayList<Character> chars;
 	int max;
 	
 	public void solution(String[] words, int k) {
 		this.words = words;
+		alphabets = new boolean[26];
 		this.max = 0;
 		
-		Set<Character> learned = new HashSet<>();
-		learned.add('a');
-		learned.add('n');
-		learned.add('t');
-		learned.add('i');
-		learned.add('c');
+		chars = inIt();
 		
-		if(k <= 5)
-			System.out.println(0);
-		else if(k == 26)
-			System.out.println(words.length);
-		else {
-			backtrack(learned, 0, k-5);
-			System.out.println(this.max);
-		}
+		if(k < 5)
+			max = 0;
+		else if(chars.size() <= k-5)
+			max = words.length;
+		else 
+			backtrack(0, 5, k);
+		
+		System.out.println(this.max);
 	}
 	
-	private void backtrack(Set<Character> learned, int depth, int k) {
+	private ArrayList<Character> inIt() {
+		alphabets['a'-'a'] = true;
+		alphabets['n'-'a'] = true;
+		alphabets['t'-'a'] = true;
+		alphabets['i'-'a'] = true;
+		alphabets['c'-'a'] = true;
+		
+		HashSet<Character> tempSet = new HashSet<>();
+		ArrayList<Character> list = new ArrayList<>();
+		
+		for(String word : words) {
+			for(int i=0; i<word.length(); i++) {
+				char c = word.charAt(i);
+				if(!alphabets[c-'a'])
+					tempSet.add(c);
+			}
+		}
+		
+		list.addAll(tempSet);
+		
+		return list;
+	}
+	
+	private void backtrack(int start, int depth, int k) {
 		if(depth == k) {
-			count(learned);
+			count();
 		}
 		else {
-			for(Character c='a'; c<='z'; c++) {
-				if(!learned.contains(c)) {
-					learned.add(c);
-					backtrack(learned, depth+1, k);
-					learned.remove(c);
-				}
+			for(int i=start; i<this.chars.size(); i++) {
+				char c = this.chars.get(i);				
+				this.alphabets[c-'a'] = true;
+				backtrack(i+1, depth+1, k);
+				this.alphabets[c-'a'] = false;
 			}
 		}
 	}
 	
-	private void count(Set<Character> learned) {
+	private void count() {
 		int cnt = 0;
 		
 		Loop : for(String word : this.words) {
 			for(int i=0; i<word.length(); i++) {
-				if(!learned.contains(word.charAt(i)))
+				if(!alphabets[word.charAt(i)-'a'])
 					continue Loop;
 			}
 			cnt++;
@@ -57,5 +77,5 @@ public class Solution {
 		if(this.max < cnt)
 			this.max = cnt;
 	}
-	
+
 }
