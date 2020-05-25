@@ -10,7 +10,7 @@ public class SegmentTree {
 	
 	public SegmentTree(long[] array) {
 		this.array = array;
-		int size = (int)Math.pow(2, (int)(Math.log(array.length)/Math.log(2)+2)) + 1;
+		int size = (int)Math.pow(2, (int)Math.ceil((Math.log(array.length)/Math.log(2)+1))) + 1;
 		segTree = new long[size];
 		
 		this.begin = 0;
