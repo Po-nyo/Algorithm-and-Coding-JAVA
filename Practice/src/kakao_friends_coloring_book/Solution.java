@@ -1,28 +1,31 @@
 package kakao_friends_coloring_book;
 
-public class Solution {
+import java.util.Stack;
+
+class Solution {
 	
-	private int areaSize;
-	private boolean isArea;
+	static class Point {
+		private int row;
+		private int col;
+		
+		private Point(int row, int col) {
+			this.row = row;
+			this.col = col;
+		}
+	}
 	
 	public int[] solution(int m, int n, int[][] picture) {
-		int numberOfArea = 0;
+		boolean[][] visited = new boolean[m][n];
+        int numberOfArea = 0;
         int maxSizeOfOneArea = 0;
-        
-        for(int i=0; i<picture.length; i++) {
-        	for(int j=0; j<picture[i].length; j++) {
-        		if(picture[i][j] != -1) {
-		        	this.areaSize = 0;
-		        	this.isArea = true;
-		        	dfs(picture, i, j, picture[i][j]);
-		        	
-		        	if(isArea) {
-		        		numberOfArea++;
-			        	if(this.areaSize > maxSizeOfOneArea)
-			        		maxSizeOfOneArea = this.areaSize;
-		        	}
-        		}
-        	}
+
+        for(int i=0; i<m; i++) {
+            for(int j=0; j<n; j++) {
+                if(!visited[i][j] && picture[i][j] != 0) {
+                    maxSizeOfOneArea = Math.max(maxSizeOfOneArea, dfs(picture, visited, i, j));
+                    numberOfArea++;
+                }
+            }
         }
 
         int[] answer = new int[2];
@@ -32,33 +35,34 @@ public class Solution {
         return answer;
 	}
 	
-	private void dfs(int[][] picture, int row, int col, int color) {
-		if(picture[row][col] != color)
-			return;
-		else {
-			picture[row][col] = -1;
-			this.areaSize++;
+	private int dfs(int[][] picture, boolean[][] visited, int startRow, int startCol) {
+		int color = picture[startRow][startCol];
+		int areaSize = 0;
+		
+		Stack<Point> stack = new Stack<>();
+		stack.push(new Point(startRow, startCol));
+		
+		visited[startRow][startCol] = true;
+		
+		while(!stack.isEmpty()) {
+			Point current = stack.pop();
+			areaSize++;
 			
 			int[] rowDirection = {-1, 0, 0, 1};
 			int[] colDirection = {0, -1, 1, 0};
 			
 			for(int i=0; i<4; i++) {
-				int movedRow = row + rowDirection[i];
-				int movedCol = col + colDirection[i];
+				int row = current.row + rowDirection[i];
+				int col = current.col + colDirection[i];
 				
-				if(inRange(picture, movedRow, movedCol)) {
-					if(picture[movedRow][movedCol] != -1)
-						dfs(picture, movedRow, movedCol, color);
-				}
-				else {
-					if(color == 0)
-						this.isArea = false;
+				if(row >= 0 && row < picture.length && col >= 0 && col < picture[0].length) {
+					if(picture[row][col] == color && !visited[row][col]) {
+						stack.push(new Point(row, col));
+						visited[row][col] = true;
+					}
 				}
 			}
 		}
-	}
-	
-	private boolean inRange(int[][] picture, int row, int col) {
-		return (row >= 0 && row < picture.length && col >= 0 && col < picture[0].length);
+		return areaSize;
 	}
 }
